@@ -1,0 +1,13 @@
+polybar|notice:  Parsing config file: /home/stivi/.config/polybar/config
+polybar|warn:  The config parameter 'settings.throttle-input-for' is deprecated, it will be removed in the future. Please remove it from your config
+polybar|notice:  pulseaudio: using default sink alsa_output.pci-0000_2b_00.4.analog-surround-71
+polybar|notice:  Loaded font "Pragmata Pro Mono:style=Bold:pixelsize=18" (name=Liberation Sans, offset=0, file=/usr/share/fonts/liberation-fonts/LiberationSans-Bold.ttf)
+polybar|notice:  Loaded font "Iosevka Nerd Font Mono:style=Regular:pixelsize=40" (name=Iosevka, offset=1, file=/home/stivi/.local/share/fonts/NerdFonts/Iosevka Nerd Font Complete Mono.ttf)
+polybar|notice:  Loaded font "Font Awesome 5 Pro Solid:style=Solid:pixelsize=25" (name=Font Awesome 5 Pro, offset=2, file=/usr/share/fonts/fa-solid-900.ttf)
+polybar|notice:  Loaded font "Font Awesome 5 Pro Regular:style=Regular:pixelsize=30" (name=Font Awesome 5 Pro, offset=3, file=/usr/share/fonts/fa-regular-400.ttf)
+polybar|notice:  Loaded font "Font Awesome 5 Brands:style=Regular:pixelsize=30" (name=Font Awesome 5 Brands, offset=4, file=/usr/share/fonts/fontawesome/Font Awesome 5 Brands-Regular-400.otf)
+polybar|notice:  Loaded font "Material Icons:style=Regular:pixelsize=25" (name=Material Icons, offset=5, file=/usr/share/fonts/MaterialIcons-Regular.ttf)
+polybar|notice:  Loaded font "Noto Sans Symbols:style=Regular:pixelsize=25" (name=Noto Sans Symbols, offset=6, file=/usr/share/fonts/noto/NotoSansSymbols-Regular.ttf)
+polybar|notice:  Loaded font "Noto Sans Symbols2:style=Regular:pixelsize=25" (name=Noto Sans Symbols2, offset=7, file=/usr/share/fonts/noto/NotoSansSymbols2-Regular.ttf)
+polybar|notice:  Loaded font "font-logos:style=Regular:pixelsize=25" (name=Liberation Sans, offset=8, file=/usr/share/fonts/liberation-fonts/LiberationSans-Regular.ttf)
+polybar|notice:  Loaded font "Unifont:style=Medium:pixelsize=20" (name=Unifont, offset=9, file=/usr/share/fonts/unifont/unifont.ttf)

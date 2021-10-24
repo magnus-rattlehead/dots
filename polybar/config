@@ -1,0 +1,370 @@
+[colors]
+background = #5a000000
+background-alt = #606060
+foreground = #a89999
+# color8 = #000000
+
+[bar/bar]
+
+enable-ipc=true
+override-redirect = false 
+wm-restack = bspwm
+bottom = false
+background = ${colors.background}
+foreground = ${colors.foreground}
+fixed-center = true
+width = 100%
+height = 55
+radius = 0.0
+line-size = 7
+line-color = #f00
+offset-y = 0
+offset-x = 0
+seperator = <
+
+font-0 = Pragmata Pro Mono:style=Bold:pixelsize=18;0
+font-1 = Iosevka Nerd Font Mono:style=Regular:pixelsize=40;1
+font-2 = Font Awesome 5 Pro Solid:style=Solid:pixelsize=25;2
+font-3 = Font Awesome 5 Pro Regular:style=Regular:pixelsize=30;3
+font-4 = Font Awesome 5 Brands:style=Regular:pixelsize=30;4
+font-5 = Material Icons:style=Regular:pixelsize=25;5
+font-6 = Noto Sans Symbols:style=Regular:pixelsize=25;6
+font-7 = Noto Sans Symbols2:style=Regular:pixelsize=25;7
+font-8 = font-logos:style=Regular:pixelsize=25;8
+font-9 = Unifont:style=Medium:pixelsize=20;9
+
+modules-left = rofi bspwm ncspot
+modules-center = xwindow 
+modules-right = time date pulseaudio powermenu-rofi
+
+[module/pulseaudio-control]
+type = custom/script
+exec = pulseaudio-control --icons-volume " , " --icon-muted " " listen
+tail = true
+label-underline = #FFF000
+label-padding = 4
+label-foreground = #e6d6ac
+
+# Icons mixed from Font Awesome 5 and Material Icons
+# You can copy-paste your options for each possible action, which is more
+# trouble-free but repetitive, or apply only the relevant ones (for example
+# --sink-blacklist is only needed for next-sink).
+click-left = pulseaudio-control togmute
+click-middle = pulseaudio-control next-sink
+click-right = exec pavucontrol &
+scroll-up = pulseaudio-control --volume-max 100 up
+scroll-down = pulseaudio-control --volume-max 100 down
+
+[module/rofi]
+type = custom/text
+content = 
+click-left = rofi -no-config -no-lazy-grab -show drun -modi drun -location 1 -xoffset 39 -yoffset 73 -theme ~/.config/rofi/launcher.rasi
+# click-right = rofi -show window -location 1 -xoffset 39 -yoffset 73
+enable-click = true
+content-foreground = #e6d6ac
+content-padding = 2
+
+[module/bspwm]
+type = internal/bspwm
+index-sort = true
+enable-click = true
+format = <label-state>
+foramt-prefix-padding = 2
+pin-workspaces = true
+
+label-empty-foreground = #a89999
+label-focused-foreground = #87af87
+label-focused-underline = #87af87
+label-focused-background = ${colors.background-alt} 
+label-focused = %name%
+label-focused-padding = 2
+label-occupied = %name%
+label-occupied-padding = 2
+label-occupied-foreground = #e6d6ac
+label-empty = %name%
+label-empty-padding = 2
+
+[settings]
+label-focused-underline= ${colors.foreground}
+throttle-output = 5
+throttle-output-for = 10
+throttle-input-for = 30
+screenchange-reload = true
+pseudo-transparency = false
+
+[global/wm]
+margin-bottom = 5
+
+[module/ncspot]
+type = custom/script
+exec = playerctl -p ncspot metadata --format '[{{ uc(status) }}] {{artist}} - {{title}}'
+exec-if = "pgrep ncspot"
+format-foreground =  #e6d6ac
+format-padding = 1
+format-prefix = 
+format-prefix-padding = 1
+format-prefix-foreground = #87af87
+format-underline = #98971a
+tail = false
+interval = 1
+click-left = playerctl -p ncspot play-pause
+click-right = playerctl -p ncspot stop
+scroll-up = playerctl -p ncspot next
+scroll-down = playerctl -p ncspot previous
+
+[module/time]
+type = internal/date
+time = %I:%M %p
+date = %A, %d %B %Y
+format = <label>
+format-prefix-padding = 1
+format-foreground = #87af87
+format-padding = 2
+label = %time%
+label-underline = #458588
+label-foreground = #e6d6ac
+
+[module/date]
+type = internal/date
+date = %A, %d %B %Y
+format = <label>
+format-prefix-padding = 1
+format-foreground = #87af87
+format-padding = 2
+label = %date%
+label-underline = #cc241d
+label-foreground = #e6d6ac
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = VOL: <label-volume>
+label-muted = muted
+label-muted-padding = 2
+label-volume-foreground = #e6d6ac
+format-volume-foreground = #87af87
+format-volume-padding = 2
+
+[module/xwindow]
+;https://github.com/jaagr/polybar/wiki/Module:-xwindow
+type = internal/xwindow
+
+; Available tokens:
+;   %title%
+; Default: %title%
+label = %title%
+label-maxlen = 50
+
+format-underline = #d79921
+format-foreground = #e6d6ac
+format-background = ${colors.background}
+
+[module/powermenu-rofi]
+type = custom/text
+content = %{O10}
+content-foreground = #87af87
+content-padding = 2
+click-left = ~/.config/polybar/scripts/powermenu.sh &
+
+[module/powermenu]
+type = custom/menu
+format-padding = 2
+format-foreground = #87af87
+menu-0-0 = %{F#ff7575}%{F-}
+menu-0-0-exec = sudo poweroff
+menu-0-1 = %{F#ffbc75}%{F-}
+menu-0-1-exec = bspc quit
+menu-0-2 = %{F#fff945}勒%{F-}
+menu-0-2-exec = sudo reboot
+label-open = %{O10}
+label-close = %{F#ff8c8c}%{F-}
+label-separator = %{O5}%{O5}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = false 
+format-volume = <ramp-volume> <label-volume> <bar-volume>
+
+ramp-volume-font = 3
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-foreground = #e6d6ac
+
+label-volume = %percentage%%
+label-volume-foreground = #e6d6ac
+ 
+label-muted = 🔇 muted
+label-muted-foreground = #666
+ 
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = /
+bar-volume-indicator-font = 0
+bar-volume-fill = ─
+bar-volume-fill-font = 0
+bar-volume-empty = ─
+bar-volume-empty-font = 0
+bar-volume-empty-foreground = #404040
+
+click-right = exec pavucontrol &
+
+[module/network]
+type = internal/network
+; Name of the network interface to display. You can get the names of the
+; interfaces on your machine with `ip link`
+; Wireless interfaces often start with `wl` and ethernet interface with `eno` or `eth`
+interface = wlp39s0
+
+; Test connectivity every Nth update
+; A value of 0 disables the feature
+; NOTE: Experimental (needs more testing)
+; Default: 0
+;ping-interval = 3
+
+; @deprecated: Define min width using token specifiers (%downspeed:min% and %upspeed:min%)
+; Minimum output width of upload/download rate
+; Default: 3
+udspeed-minwidth = 5
+
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected-padding = 10
+format-connected = <ramp-signal><label-connected>
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected-padding = 10
+format-disconnected = <label-disconnected>
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+format-packetloss-padding = 10
+format-packetloss = <animation-packetloss> <label-connected>
+
+; All labels support the following tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+
+; Default: %ifname% %local_ip%
+label-connected = %essid%    %downspeed:9%   %upspeed:9%
+;label-connected-foreground = #e6d6ac
+
+; Default: (none)
+label-disconnected-font = 3
+label-disconnected = 
+;label-disconnected-foreground = #e6d6ac
+
+; Default: (none)
+;label-packetloss = %essid%
+;label-packetloss-foreground = #eefafafa
+
+; Only applies if <ramp-signal> is used
+ramp-signal-font = 3
+ramp-signal-0-foreground = #f00
+ramp-signal-1-foreground= #f00
+ramp-signal-2-foreground = #d15830
+ramp-signal-3-foreground = #d15830
+ramp-signal-4-foreground = #4dd130
+ramp-signal-5-foreground = #4dd130
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-5 = 
+
+; Only applies if <animation-packetloss> is used
+animation-packetloss-0 = ⚠
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 📶
+animation-packetloss-1-foreground = #000000
+; Framerate in milliseconds
+animation-packetloss-framerate = 500
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+; Available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+format = <label>
+format-prefix = 
+format-padding = 2
+format-prefix-padding = 2
+
+; Available tokens:
+;   %percentage% (default) - total cpu load averaged over all cores
+;   %percentage-sum% - Cumulative load on all cores
+;   %percentage-cores% - load percentage for each core
+;   %percentage-core[1-9]% - load percentage for specific core
+label =  %percentage%%
+
+; Spacing between individual per-core ramps
+ramp-coreload-spacing = 1
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
+
+[module/memory]
+type = internal/memory
+interval = 0.5
+icon = 
+icon-font = 3
+; Available tags:
+;   <label> (default)
+;   <bar-used>
+;   <bar-free>
+;   <ramp-used>
+;   <ramp-free>
+;   <bar-swap-used>
+;   <bar-swap-free>
+;   <ramp-swap-used>
+;   <ramp-swap-free>
+format = <label>
+format-prefix = |
+format-prefix-padding = 2
+
+; Available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+;   %percentage_swap_used%
+;   %percentage_swap_free%
+;   %mb_swap_total%
+;   %mb_swap_free%
+;   %mb_swap_used%
+;   %gb_swap_total%
+;   %gb_swap_free%
+;   %gb_swap_used%
+label = %{T3}%{T-} %gb_used%/%gb_free%
+
